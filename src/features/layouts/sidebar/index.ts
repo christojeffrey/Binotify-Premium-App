@@ -1,1 +1,0 @@
-export { FeaturesLayoutSidebar } from "./sidebar";
