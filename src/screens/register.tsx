@@ -1,1 +1,3 @@
-export const screensRegister = () => {};
+export const ScreensRegister = () => {
+  return <>register</>;
+};
