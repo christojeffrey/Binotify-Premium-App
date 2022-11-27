@@ -1,3 +1,3 @@
 export const config = {
-  REST_API_URL: "http://binotify_rest:3000",
+  REST_API_URL: "http://localhost:8085",
 };

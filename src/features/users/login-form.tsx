@@ -23,6 +23,9 @@ export const FeaturesUsersLoginForm = () => {
     console.log(formValues);
     fetch(`${config.REST_API_URL}/login`, {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(formValues),
     })
       .then((res) => {
