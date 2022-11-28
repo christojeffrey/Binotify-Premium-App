@@ -15,12 +15,13 @@ const ScreensRouter = () => {
         <Route path="/" element={<PageRedirectorAndUserStoreSetter />} />
         <Route path="/login" element={<ScreensLogin />} />
         <Route path="/register" element={<ScreensRegister />} />
+        <Route path="/songs" element={<ScreensSongs />} />
       </Routes>
     </BrowserRouter>
   );
 };
 
-const PageRedirectorAndUserStoreSetter = () => {
+const PageRedirectorAndUserStoreSetter = () : JSX.Element => {
   const [isChecked, setIsChecked] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
   let navigate = useNavigate();
@@ -41,12 +42,15 @@ const PageRedirectorAndUserStoreSetter = () => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
+
+
           // set user store
           let setIsAdmin = useUserStore.getState().setIsAdmin;
           let setUsername = useUserStore.getState().setUsername;
-          setIsAdmin(data.isAdmin);
+          let setName = useUserStore.getState().setName;
+          setIsAdmin(data.is_admin);
           setUsername(data.username);
+          setName(data.name);
 
           // set is admin
           if (data.isAdmin) {
