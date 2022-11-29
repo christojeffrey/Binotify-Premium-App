@@ -1,10 +1,11 @@
 import { FeaturesSongs } from "@features/songs/songs";
+import { Box } from "@mui/material";
 
 export const ScreensSongs = () => {
   return (
-      <div className="flex items-center justify-center h-screen">
+      <Box >
         <FeaturesSongs />
-      </div>
+      </Box>
   )
     
 };

@@ -4,6 +4,7 @@ import { Box, Card, CardContent, Typography, IconButton } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReactAudioPlayer from 'react-audio-player';
+import EditIcon from '@mui/icons-material/Edit';
 import { useSongStore, useUserStore } from "@features/store";
 import { Song } from "@features/store";
 import { Delete } from "@mui/icons-material";
@@ -16,6 +17,7 @@ export const FeaturesSongsCard = ({
 }: Song ) => {
     let setIsOpenSongPlayCard = useSongStore.getState().setIsOpenSongPlayCard;
     let setIsDeleteSongModalOpen = useSongStore.getState().setIsDeleteSongModalOpen;
+    let setIsEditSongModalOpen = useSongStore.getState().setIsEditSongModalOpen;
     let setSelectedSong = useSongStore.getState().setSelectedSong;
     let singer = useUserStore.getState().name;
     const selectSong = () => {
@@ -35,9 +37,14 @@ export const FeaturesSongsCard = ({
         setIsDeleteSongModalOpen(true);
     }
 
+    const editSong = () => {
+        selectSong();
+        setIsEditSongModalOpen(true);
+    }
+
     return (
-        <Card>
-            <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+        <Card className="play-audio-card-container my-1">
+            <Box className="play-audio-card-content-container" sx={{ display: 'flex', flexDirection: 'row' }}>
                 <CardContent>
                     <Box>
                         <Typography component="div" variant="h5">
@@ -55,6 +62,9 @@ export const FeaturesSongsCard = ({
                     </IconButton>
                     <IconButton aria-label="delete" onClick={deleteSong}>
                         <Delete sx={{ height: 38, width: 38 }} />
+                    </IconButton>
+                    <IconButton aria-label="edit" onClick={editSong}>
+                        <EditIcon sx={{ height: 38, width: 38 }} />
                     </IconButton>
                 </Box>
             </Box>

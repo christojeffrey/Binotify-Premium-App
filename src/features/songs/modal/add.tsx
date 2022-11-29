@@ -81,7 +81,9 @@ export const FeaturesSongsModalAdd = ({
         setFormValues(defaultValues);
     }
     return (
-        <Modal open={isAddSongModalOpen} onClose={() =>setIsAddSongModalOpen(false)}>
+        <Modal  open={isAddSongModalOpen}
+                onClose={() =>setIsAddSongModalOpen(false)}
+                className="flex items-center justify-center h-screen">
              <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleSubmit}>
                 <TextField  id="title"
                             label="Title"

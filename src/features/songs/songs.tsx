@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 
 import { FeaturesSongsModalAdd } from "@features/songs/modal/add";
+import { FeaturesSongsModalEdit } from "@features/songs/modal/edit";
 import { FeaturesSongsModalDelete } from "@features/songs/modal/delete";
 import { FeaturesSongsCard } from "@features/songs/card";
 import { FeaturesSongsPlay } from "@features/songs/play";
@@ -22,10 +23,10 @@ const paginationInitialValue = {
     limit: 2,
 }
 export const FeaturesSongs = () => {
-    let isAddSongModalOpen = useSongStore.getState().isAddSongModalOpen;
-    let isDeleteSongModalOpen = useSongStore.getState().isDeleteSongModalOpen;
-    let isOpenSongPlayCard = useSongStore.getState().isOpenSongPlayCard;
-    let selectedSong = useSongStore.getState().selectedSong;
+    let isAddSongModalOpen = useSongStore(state => state.isAddSongModalOpen);
+    let isDeleteSongModalOpen = useSongStore(state => state.isDeleteSongModalOpen);
+    let isOpenSongPlayCard = useSongStore(state => state.isOpenSongPlayCard);
+    let selectedSong = useSongStore(state => state.selectedSong);
 
     let setIsAddSongModalOpen = useSongStore.getState().setIsAddSongModalOpen;
     let setIsDeleteSongModalOpen = useSongStore.getState().setIsDeleteSongModalOpen;
@@ -92,7 +93,7 @@ export const FeaturesSongs = () => {
             songCards.push(renderSongCard(song.song_id, song.title,  song.audio_path));
         });
         return (
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', alignSelf: 'center' }}>
                 {songCards}
             </Box>
         );
@@ -113,18 +114,25 @@ export const FeaturesSongs = () => {
     return (
         // todo: pagination
         <>
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <IconButton disabled={!canGoToPreviousPage} aria-label="navigate-before" onClick={goToPreviousPage}>
-                <NavigateBeforeIcon sx={{ height: 38, width: 38, color: "white" }} />
-            </IconButton>
-            <IconButton disabled={!canGoToNextPage} aria-label="navigate-next" onClick={goToNextPage}>
-                <NavigateNextIcon sx={{ height: 38, width: 38, color: "white" }} />
-            </IconButton>     
-            <IconButton aria-label="add" onClick={onClickAddSongButton}>
-                <AddCircleIcon sx={{ height: 38, width: 38, color: "white" }}  />
-            </IconButton>   
+        <Box className="flex-col">
+            <Box className="flex row justify-between" >
+                <IconButton aria-label="add" onClick={onClickAddSongButton}>
+                    <AddCircleIcon sx={{ height: 38, width: 38, color: "white" }}  />
+                </IconButton>  
+                <Box className="flex row">
+                    <IconButton disabled={!canGoToPreviousPage} aria-label="navigate-before" onClick={goToPreviousPage}>
+                        <NavigateBeforeIcon sx={{ height: 38, width: 38, color: "white" }} />
+                    </IconButton>
+                    <IconButton disabled={!canGoToNextPage} aria-label="navigate-next" onClick={goToNextPage}>
+                        <NavigateNextIcon sx={{ height: 38, width: 38, color: "white" }} />
+                    </IconButton> 
+                </Box>
+                
+            </Box> 
+ 
             <FeaturesSongsModalAdd />         
             <FeaturesSongsModalDelete />
+            <FeaturesSongsModalEdit />
             {
                 songList.length > 0 ? renderSongCards() : <p>No songs found</p>
             }

@@ -65,7 +65,8 @@ export const FeaturesSongsModalDelete = ({
     return (
         <Modal
             open={isDeleteSongModalOpen}
-            onClose={handleCloseDeleteSongModal}>
+            onClose={handleCloseDeleteSongModal}
+            className="flex items-center justify-center h-screen">
              <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleDelete}>
                 <Typography>Are you sure want to delete {selectedSong.title}?</Typography>
                 <Button variant="contained" type="submit" disabled={isLoading} onClick={handleDelete}>

@@ -29,6 +29,8 @@ interface songState {
   setIsAddSongModalOpen: (isAddSongModalOpen: boolean) => void;
   isDeleteSongModalOpen: boolean;
   setIsDeleteSongModalOpen: (isDeleteSongModalOpen: boolean) => void;
+  isEditSongModalOpen: boolean;
+  setIsEditSongModalOpen: (isEditSongModalOpen: boolean) => void;
   isOpenSongPlayCard: boolean;
   setIsOpenSongPlayCard: (isOpenSongPlayCard: boolean) => void;
   selectedSong: Song;
@@ -55,9 +57,11 @@ export const useSongStore = create<songState>()(
       isAddSongModalOpen: false,
       isDeleteSongModalOpen: false,
       isOpenSongPlayCard: false,
+      isEditSongModalOpen: false,
       selectedSong: selectedSongInitialValue,
       setIsAddSongModalOpen: (isAddSongModalOpen: boolean) => set({ isAddSongModalOpen }),
       setIsDeleteSongModalOpen: (isDeleteSongModalOpen: boolean) => set({ isDeleteSongModalOpen }),
+      setIsEditSongModalOpen: (isEditSongModalOpen: boolean) => set({ isEditSongModalOpen }),
       setIsOpenSongPlayCard: (isOpenSongPlayCard: boolean) => set({ isOpenSongPlayCard }),
       setSelectedSong: (selectedSong: Song) => set({ selectedSong }),
     }))

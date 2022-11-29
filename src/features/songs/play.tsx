@@ -35,11 +35,11 @@ export const FeaturesSongsPlay = ({
         //     });
         // }
         let selectedSong : Song = useSongStore(state => state.selectedSong);
-        let singer = useUserStore.getState().name;
+        let singer : string = useUserStore(state => state.name);
 
         return (
 
-            <Card sx={{ marginBottom: 0 }}>
+            <Card sx={{ bottom: 0, position: 'fixed', width: '100%' }}>
                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                     <CardContent>
                         <Box>
