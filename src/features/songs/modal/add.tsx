@@ -2,7 +2,8 @@ import { useState} from "react";
 import TextField from "@mui/material/TextField";
 import { Modal, Box, Button, Alert } from "@mui/material";
 import { config } from "@config";
-import { useSongStore} from "@features/store";
+import { useSongStore, selectedSongInitialValue } from "@features/store";
+import { useNavigate } from "react-router-dom";
 
 const defaultValues = {
     title: null,
@@ -20,8 +21,12 @@ export const FeaturesSongsModalAdd = ({
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    let navigate = useNavigate();
+
+    let setSelectedSong = useSongStore.getState().setSelectedSong;
     let setIsAddSongModalOpen = useSongStore.getState().setIsAddSongModalOpen;
     let isAddSongModalOpen = useSongStore(state => state.isAddSongModalOpen);
+
     const handleInputChange = (e: any) => {
         const { id, value } = e.target;
         setFormValues({
@@ -56,20 +61,22 @@ export const FeaturesSongsModalAdd = ({
         .then((res) => {
             if (res.status === 200) {
               res.json().then((data) => {
-                setIsAddSongModalOpen(false);
-                setIsLoading(false);
+                handleCloseAddSongModal();
+                navigate(0);
               });
             } else {
-            setErrorMessage("Error adding song");
               setIsLoading(false);
+              setErrorMessage("Error adding song");
             }
         })
         .catch((err) => {
-            setErrorMessage(err);
             setIsLoading(false);
+            setErrorMessage(err);
         });
+
     }
     const handleCloseAddSongModal = () => {
+      setIsLoading(false);
         setIsAddSongModalOpen(false);
         setFormValues(defaultValues);
     }

@@ -9,6 +9,12 @@ export interface Song {
   audio_path: string;
 }
 
+export const selectedSongInitialValue = {
+  song_id: 0,
+  title: "",
+  audio_path: "",
+}
+
 interface userState {
   isAdmin: boolean;
   username: string;
@@ -49,11 +55,7 @@ export const useSongStore = create<songState>()(
       isAddSongModalOpen: false,
       isDeleteSongModalOpen: false,
       isOpenSongPlayCard: false,
-      selectedSong: {
-        song_id: 0,
-        title: "",
-        audio_path: "",
-      },
+      selectedSong: selectedSongInitialValue,
       setIsAddSongModalOpen: (isAddSongModalOpen: boolean) => set({ isAddSongModalOpen }),
       setIsDeleteSongModalOpen: (isDeleteSongModalOpen: boolean) => set({ isDeleteSongModalOpen }),
       setIsOpenSongPlayCard: (isOpenSongPlayCard: boolean) => set({ isOpenSongPlayCard }),

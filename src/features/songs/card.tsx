@@ -2,9 +2,11 @@ import { useState} from "react";
 
 import { Box, Card, CardContent, Typography, IconButton } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ReactAudioPlayer from 'react-audio-player';
 import { useSongStore, useUserStore } from "@features/store";
 import { Song } from "@features/store";
+import { Delete } from "@mui/icons-material";
 
 
 export const FeaturesSongsCard = ({
@@ -13,15 +15,24 @@ export const FeaturesSongsCard = ({
     audio_path
 }: Song ) => {
     let setIsOpenSongPlayCard = useSongStore.getState().setIsOpenSongPlayCard;
+    let setIsDeleteSongModalOpen = useSongStore.getState().setIsDeleteSongModalOpen;
     let setSelectedSong = useSongStore.getState().setSelectedSong;
     let singer = useUserStore.getState().name;
-    const playAudio = () => {
-        setIsOpenSongPlayCard(true);
+    const selectSong = () => {
         setSelectedSong({
             song_id: song_id,
             title: title,
             audio_path: audio_path
-        })
+        });
+    }
+    const playAudio = () => {
+        selectSong();
+        setIsOpenSongPlayCard(true);
+    }
+    
+    const deleteSong = () => {
+        selectSong();
+        setIsDeleteSongModalOpen(true);
     }
 
     return (
@@ -41,6 +52,9 @@ export const FeaturesSongsCard = ({
                    
                     <IconButton aria-label="play/pause" onClick={() => playAudio()}>
                         <PlayArrowIcon sx={{ height: 38, width: 38 }} />
+                    </IconButton>
+                    <IconButton aria-label="delete" onClick={deleteSong}>
+                        <Delete sx={{ height: 38, width: 38 }} />
                     </IconButton>
                 </Box>
             </Box>

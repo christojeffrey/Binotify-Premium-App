@@ -10,21 +10,17 @@ import { config } from "@config";
 import { useNavigate } from "react-router-dom";
 
 import { Box, IconButton } from "@mui/material";
-import AddCircle from '@mui/icons-material/PlayArrow';
+
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 // create 2 dummy song data for testing
-const dummySongs: Song[] = [
-    {
-        "song_id": 1,
-        "title": "hati2",
-        "audio_path": "1669673513669.m4a"
-    },
-    {
-        "song_id": 2,
-        "title": "bermain3",
-        "audio_path": "1669673513669.m4a"
-    }
-]
+
+const paginationInitialValue = {
+    page: 1,
+    limit: 2,
+}
 export const FeaturesSongs = () => {
     let isAddSongModalOpen = useSongStore.getState().isAddSongModalOpen;
     let isDeleteSongModalOpen = useSongStore.getState().isDeleteSongModalOpen;
@@ -39,6 +35,9 @@ export const FeaturesSongs = () => {
     let navigate = useNavigate();
 
     const [songList, setSongList] = useState([]);
+    const [pagination, setPagination] = useState(paginationInitialValue);
+    const [canGoToNextPage, setCanGoToNextPage] = useState(true);
+    const [canGoToPreviousPage, setCanGoToPreviousPage] = useState(false);
 
     // fetch song list
     useEffect(() => {
@@ -66,6 +65,15 @@ export const FeaturesSongs = () => {
     }, [ ]);
 
 
+    useEffect(() => {
+
+        setCanGoToPreviousPage(pagination.page > 1)
+    }, [pagination.page])
+
+    useEffect(() => {
+        setCanGoToNextPage(Math.ceil(songList.length / pagination.limit)  > pagination.page)
+    }, [songList, pagination.page, pagination.limit])
+
     const renderSongCard = (song_id: number,
         title: string,
         audio_path: string) => {
@@ -80,7 +88,7 @@ export const FeaturesSongs = () => {
 
     const renderSongCards = () => {
         let songCards: JSX.Element[] = [];
-        songList.forEach((song: Song) => {
+        (songList as Song[]).slice((pagination.page-1) * pagination.limit, pagination.page * pagination.limit).forEach((song) => {
             songCards.push(renderSongCard(song.song_id, song.title,  song.audio_path));
         });
         return (
@@ -89,18 +97,34 @@ export const FeaturesSongs = () => {
             </Box>
         );
     }
+
+    const goToNextPage = () => {
+        setPagination({...pagination, page: pagination.page + 1});
+    }
+
+    const goToPreviousPage = () => {
+        setPagination({...pagination, page: pagination.page - 1});
+    }
+
     const onClickAddSongButton = () => {
         setIsAddSongModalOpen(true);
     }
 
     return (
+        // todo: pagination
         <>
         <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <IconButton disabled={!canGoToPreviousPage} aria-label="navigate-before" onClick={goToPreviousPage}>
+                <NavigateBeforeIcon sx={{ height: 38, width: 38, color: "white" }} />
+            </IconButton>
+            <IconButton disabled={!canGoToNextPage} aria-label="navigate-next" onClick={goToNextPage}>
+                <NavigateNextIcon sx={{ height: 38, width: 38, color: "white" }} />
+            </IconButton>     
             <IconButton aria-label="add" onClick={onClickAddSongButton}>
-                <AddCircle sx={{ height: 38, width: 38 }} />
+                <AddCircleIcon sx={{ height: 38, width: 38, color: "white" }}  />
             </IconButton>   
             <FeaturesSongsModalAdd />         
-            {/* <FeaturesSongsModalDelete isDeleteSongModalOpen={isDeleteSongModalOpen} song_id={selectedSong.song_id} setIsDeleteSongModalOpen={setIsDeleteSongModalOpen}/> */}
+            <FeaturesSongsModalDelete />
             {
                 songList.length > 0 ? renderSongCards() : <p>No songs found</p>
             }

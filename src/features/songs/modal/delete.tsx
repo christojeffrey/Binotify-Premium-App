@@ -1,7 +1,9 @@
 import { useState} from "react";
 import TextField from "@mui/material/TextField";
-import { Modal, Box, Button, Alert } from "@mui/material";
+import { Modal, Box, Button, Alert, Typography } from "@mui/material";
 import { config } from "@config";
+import { useSongStore, selectedSongInitialValue } from "@features/store";
+import { useNavigate } from "react-router-dom";
 
 const defaultValues = {
     title: null,
@@ -9,15 +11,11 @@ const defaultValues = {
   };
 
   type FeaturesSongsModalDeleteProps = {
-    isDeleteSongModalOpen: boolean,
-    song_id: number,
-    setIsDeleteSongModalOpen: (isDeleteSongModalOpen: boolean) => void
+
   }
 
 export const FeaturesSongsModalDelete = ({
-        isDeleteSongModalOpen,
-        song_id,
-        setIsDeleteSongModalOpen
+
     }: FeaturesSongsModalDeleteProps) => {
 // : FC<FeaturesSongsModalAddProps> = ({
 //     isAddSongModalOpen
@@ -26,39 +24,51 @@ export const FeaturesSongsModalDelete = ({
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
+    let setIsDeleteSongModalOpen = useSongStore.getState().setIsDeleteSongModalOpen;
+    let isDeleteSongModalOpen = useSongStore(state => state.isDeleteSongModalOpen);
+
+    let setSelectedSong = useSongStore.getState().setSelectedSong;
+    let selectedSong = useSongStore(state => state.selectedSong);
+    let navigate = useNavigate();
 
     const handleDelete = (event: any) => {
         event.preventDefault();
         setIsLoading(true);
-        fetch(`${config.REST_API_URL}/song/${song_id}`, {
+        fetch(`${config.REST_API_URL}/song/${selectedSong.song_id}`, {
             method: "DELETE",
             headers: {
-                "Content-Type": "multipart/form-data; boundary=<calculated when request is sent>",
                 "Authorization": `${localStorage.getItem("token")}`
             }
         })
         .then((res) => {
             if (res.status === 200) {
               res.json().then((data) => {
-                window.location.href = "/";
+                handleCloseDeleteSongModal();
+                navigate(0);
               });
             } else {
-            setErrorMessage("Error adding song");
-              setIsLoading(false);
+            setIsLoading(false);
+            setErrorMessage("Error deleting song");
             }
         })
         .catch((err) => {
-            setErrorMessage(err);
             setIsLoading(false);
-        });
+            setErrorMessage(err);
+        })
+    }
+    
+    const handleCloseDeleteSongModal = () => {
+        setIsLoading(false);
+        setIsDeleteSongModalOpen(false);
+        setSelectedSong(selectedSongInitialValue);
     }
     return (
         <Modal
             open={isDeleteSongModalOpen}
-            onClose={() => setIsDeleteSongModalOpen(false)}>
+            onClose={handleCloseDeleteSongModal}>
              <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleDelete}>
-                <p1>Are you sure want to delete this song?</p1>
-                <Button variant="contained" type="submit" disabled={isLoading}>
+                <Typography>Are you sure want to delete {selectedSong.title}?</Typography>
+                <Button variant="contained" type="submit" disabled={isLoading} onClick={handleDelete}>
                     {isLoading ? "Loading" : "Yes"}
                 </Button>
             </Box>
