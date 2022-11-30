@@ -1,3 +1,9 @@
+import { FeaturesBarHeader } from "@features/bar";
+
 export const ScreensSubscribers = () => {
-  return <div>this is subscribers screen</div>;
+  return (
+    <div>
+      <FeaturesBarHeader /> this is subscribers screen
+    </div>
+  );
 };

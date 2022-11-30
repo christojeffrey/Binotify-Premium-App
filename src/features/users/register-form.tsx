@@ -2,6 +2,7 @@ import { Box, Button } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { config } from "@config";
+import { setDefaultResultOrder } from "dns/promises";
 
 const defaultValues = {
   name: null,
@@ -13,6 +14,8 @@ const defaultValues = {
 
 export const FeaturesUsersRegisterForm = () => {
   const [formValues, setFormValues] = useState(defaultValues);
+  const [error, setError] = useState(null);
+
   const handleInputChange = (e: any) => {
     const { id, value } = e.target;
     setFormValues({
@@ -41,15 +44,15 @@ export const FeaturesUsersRegisterForm = () => {
       body: JSON.stringify(editedFormValues),
     })
       .then((res) => {
-        if (res.status === 200) {
-          res.json().then((data) => {
+        res.json().then((data) => {
+          if (data.token) {
             localStorage.setItem("token", data.token);
             window.location.href = "/";
-          });
-        } else {
-          console.log("error");
-          setIsLoading(false);
-        }
+          } else {
+            setError(data.error);
+          }
+        });
+        setIsLoading(false);
       })
       .catch((err) => {
         console.log(err);
@@ -65,6 +68,8 @@ export const FeaturesUsersRegisterForm = () => {
       <TextField id="password" label="password" variant="outlined" required type="password" margin="normal" value={formValues.password} onChange={handleInputChange} disabled={isLoading} />
       {/* confirm password */}
       <TextField id="confirmPassword" label="confirm password" variant="outlined" required type="password" margin="normal" value={formValues.confirmPassword} onChange={handleInputChange} disabled={isLoading} />
+
+      <div className="h-6 text-red-500">{error}</div>
       <Button variant="contained" type="submit" disabled={isLoading}>
         {isLoading ? "Loading" : "Register"}
       </Button>

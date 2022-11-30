@@ -15,15 +15,13 @@ const ScreensRouter = () => {
         <Route path="/" element={<PageRedirectorAndUserStoreSetter />} />
         <Route path="/login" element={<ScreensLogin />} />
         <Route path="/register" element={<ScreensRegister />} />
-        <Route path="/songs" element={<ScreensSongs />} />
       </Routes>
     </BrowserRouter>
   );
 };
 
-const PageRedirectorAndUserStoreSetter = () : JSX.Element => {
+const PageRedirectorAndUserStoreSetter = () => {
   const [isChecked, setIsChecked] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
   let navigate = useNavigate();
   useEffect(() => {
     // redirect to login screen if not logged in
@@ -42,8 +40,11 @@ const PageRedirectorAndUserStoreSetter = () : JSX.Element => {
       })
         .then((res) => res.json())
         .then((data) => {
-
-
+          if (data.error) {
+            // clear token in localstorage
+            localStorage.removeItem("token");
+            navigate("/login");
+          }
           // set user store
           let setIsAdmin = useUserStore.getState().setIsAdmin;
           let setUsername = useUserStore.getState().setUsername;
@@ -52,14 +53,11 @@ const PageRedirectorAndUserStoreSetter = () : JSX.Element => {
           setUsername(data.username);
           setName(data.name);
 
-          // set is admin
-          if (data.isAdmin) {
-            setIsAdmin(true);
-          }
           // set isCehcked
           setIsChecked(true);
         })
         .catch((err) => {
+          console.log("error");
           console.log(err);
         });
     }
@@ -67,7 +65,7 @@ const PageRedirectorAndUserStoreSetter = () : JSX.Element => {
   if (!isChecked) {
     return <>loading</>;
   }
-  if (isAdmin) {
+  if (useUserStore.getState().isAdmin) {
     return <ScreensSubscribers />;
   } else {
     return <ScreensSongs />;
