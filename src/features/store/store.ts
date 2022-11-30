@@ -13,7 +13,7 @@ export const selectedSongInitialValue = {
   song_id: 0,
   title: "",
   audio_path: "",
-}
+};
 
 interface userState {
   isAdmin: boolean;
@@ -35,12 +35,11 @@ interface songState {
   setIsOpenSongPlayCard: (isOpenSongPlayCard: boolean) => void;
   selectedSong: Song;
   setSelectedSong: (selectedSong: Song) => void;
-
 }
-// for now seems like only need to store isAdmin
+// for now seems like only need to store isAdmin, username, and name
 export const useUserStore = create<userState>()(
   devtools(
-    persist((set) => ({
+    persist((set: any) => ({
       isAdmin: false,
       username: "",
       name: "",
@@ -53,7 +52,7 @@ export const useUserStore = create<userState>()(
 
 export const useSongStore = create<songState>()(
   devtools(
-    persist((set) => ({
+    persist((set: any) => ({
       isAddSongModalOpen: false,
       isDeleteSongModalOpen: false,
       isOpenSongPlayCard: false,
@@ -67,4 +66,3 @@ export const useSongStore = create<songState>()(
     }))
   )
 );
-

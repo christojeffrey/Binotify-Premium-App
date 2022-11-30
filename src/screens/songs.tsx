@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 
 export const ScreensSongs = () => {
   return (
-    <Box>
+    <Box className="p-4">
       <FeaturesBarHeader />
       <FeaturesSongs />
     </Box>
