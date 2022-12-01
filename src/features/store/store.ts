@@ -9,6 +9,12 @@ export interface Song {
   audio_path: string;
 }
 
+export interface Subscription {
+  creator_id: number;
+  subscriber_id : number;
+  status : string;
+}
+
 export const selectedSongInitialValue = {
   song_id: 0,
   title: "",

@@ -1,9 +1,12 @@
 import { FeaturesBarHeader } from "@features/bar";
+import { FeaturesSubscribers } from "@features/subscribers";
+import { Box } from "@mui/material";
 
 export const ScreensSubscribers = () => {
   return (
-    <div className="p-4">
+    <Box className="p-4">
       <FeaturesBarHeader /> this is subscribers screen
-    </div>
+      <FeaturesSubscribers />
+    </Box>
   );
 };
