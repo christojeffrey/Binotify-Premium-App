@@ -35,6 +35,8 @@ interface songState {
   setIsOpenSongPlayCard: (isOpenSongPlayCard: boolean) => void;
   selectedSong: Song;
   setSelectedSong: (selectedSong: Song) => void;
+  playedSong: Song;
+  setPlayedSong: (playedSong: Song) => void;
 }
 // for now seems like only need to store isAdmin, username, and name
 export const useUserStore = create<userState>()(
@@ -58,11 +60,13 @@ export const useSongStore = create<songState>()(
       isOpenSongPlayCard: false,
       isEditSongModalOpen: false,
       selectedSong: selectedSongInitialValue,
+      playedSong: selectedSongInitialValue,
       setIsAddSongModalOpen: (isAddSongModalOpen: boolean) => set({ isAddSongModalOpen }),
       setIsDeleteSongModalOpen: (isDeleteSongModalOpen: boolean) => set({ isDeleteSongModalOpen }),
       setIsEditSongModalOpen: (isEditSongModalOpen: boolean) => set({ isEditSongModalOpen }),
       setIsOpenSongPlayCard: (isOpenSongPlayCard: boolean) => set({ isOpenSongPlayCard }),
       setSelectedSong: (selectedSong: Song) => set({ selectedSong }),
+      setPlayedSong: (playedSong: Song) => set({ playedSong }),
     }))
   )
 );

@@ -34,7 +34,7 @@ export const FeaturesSongsPlay = ({
         //         setIsLoading(false);
         //     });
         // }
-        let selectedSong : Song = useSongStore(state => state.selectedSong);
+        let playedSong : Song = useSongStore(state => state.playedSong);
         let singer : string = useUserStore(state => state.name);
 
         return (
@@ -44,7 +44,7 @@ export const FeaturesSongsPlay = ({
                     <CardContent>
                         <Box>
                             <Typography component="div" variant="h5">
-                                {selectedSong.title}
+                                {playedSong.title}
                             </Typography>
                             <Typography variant="subtitle1" color="text.secondary" component="div">
                                 {singer}
@@ -53,7 +53,7 @@ export const FeaturesSongsPlay = ({
                     </CardContent>
                     <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
                         <ReactAudioPlayer
-                            src={`${config.REST_API_URL}/song/${selectedSong.audio_path}`}
+                            src={`${config.REST_API_URL}/song/${playedSong.audio_path}`}
                             autoPlay
                             controls
                         />
