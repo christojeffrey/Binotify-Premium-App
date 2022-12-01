@@ -25,11 +25,13 @@ const paginationInitialValue = {
 export const FeaturesSongs = () => {
     let isAddSongModalOpen = useSongStore(state => state.isAddSongModalOpen);
     let isDeleteSongModalOpen = useSongStore(state => state.isDeleteSongModalOpen);
+    let isEditSongModalOpen = useSongStore(state => state.isEditSongModalOpen);
     let isOpenSongPlayCard = useSongStore(state => state.isOpenSongPlayCard);
     let selectedSong = useSongStore(state => state.selectedSong);
-
+    let playedSong = useSongStore(state => state.playedSong);
     let setIsAddSongModalOpen = useSongStore.getState().setIsAddSongModalOpen;
     let setIsDeleteSongModalOpen = useSongStore.getState().setIsDeleteSongModalOpen;
+    let setIsEditSongModalOpen = useSongStore.getState().setIsEditSongModalOpen;
     let setIsOpenSongPlayCard = useSongStore.getState().setIsOpenSongPlayCard;
     let setSelectedSong = useSongStore.getState().setSelectedSong;
 
@@ -65,9 +67,15 @@ export const FeaturesSongs = () => {
         }
     }, [ ]);
 
+    useEffect(() => {
+        if ((isDeleteSongModalOpen ||  isEditSongModalOpen) && (selectedSong.song_id === playedSong.song_id)) {
+            console.log("sanma")
+            setIsOpenSongPlayCard(false)
+        }
+    }, [isDeleteSongModalOpen, isEditSongModalOpen, selectedSong, playedSong])
+
 
     useEffect(() => {
-
         setCanGoToPreviousPage(pagination.page > 1)
     }, [pagination.page])
 

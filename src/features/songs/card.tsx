@@ -19,6 +19,7 @@ export const FeaturesSongsCard = ({
     let setIsDeleteSongModalOpen = useSongStore.getState().setIsDeleteSongModalOpen;
     let setIsEditSongModalOpen = useSongStore.getState().setIsEditSongModalOpen;
     let setSelectedSong = useSongStore.getState().setSelectedSong;
+    let setPlayedSong = useSongStore.getState().setPlayedSong;
     let singer = useUserStore.getState().name;
     const selectSong = () => {
         setSelectedSong({
@@ -28,7 +29,11 @@ export const FeaturesSongsCard = ({
         });
     }
     const playAudio = () => {
-        selectSong();
+        setPlayedSong({
+            song_id: song_id,
+            title: title,
+            audio_path: audio_path
+        });
         setIsOpenSongPlayCard(true);
     }
     
