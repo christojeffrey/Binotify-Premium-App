@@ -5,7 +5,7 @@ import { Box } from "@mui/material";
 export const ScreensSubscribers = () => {
   return (
     <Box className="p-4">
-      <FeaturesBarHeader /> this is subscribers screen
+      <FeaturesBarHeader />
       <FeaturesSubscribers />
     </Box>
   );

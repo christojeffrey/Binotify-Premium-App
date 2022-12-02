@@ -1,18 +1,10 @@
 # description
 
-# requirements
+a website for maintaining artists and their songs. specifically for premium artists. this service is subscription based, so there's also and admin who can reject or accept the subscription request
 
-# installation
-
-# setup repo
+# setup repo and running
 
 go to Binotify-Config repository. the that repo will setup every other repo.
-
-# how to run
-
-```
-npm run dev
-```
 
 # system
 
@@ -23,6 +15,10 @@ npm run dev
 5. whatever inside screens folder is dumb. it doesn't have any logic in it
 
 remember that this is relatively experimental. So far even I am still not that comfortable with this structure, even though I am the one who structure it this way. but let's see how it goes, we might get something good out of it.
+
+# screenshots
+
+# work distribution
 
 # file folder structure and component naming reference
 

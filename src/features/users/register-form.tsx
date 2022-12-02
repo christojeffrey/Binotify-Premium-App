@@ -64,7 +64,7 @@ export const FeaturesUsersRegisterForm = () => {
     <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleSubmit}>
       <TextField color="secondary" id="name" label="name" variant="outlined" required margin="normal" value={formValues.name} onChange={handleInputChange} disabled={isLoading} />
       <TextField color="secondary" id="username" label="username" variant="outlined" required margin="normal" value={formValues.username} onChange={handleInputChange} disabled={isLoading} />
-      <TextField color="secondary" id="email" label="email" variant="outlined" required margin="normal" value={formValues.email} onChange={handleInputChange} disabled={isLoading} />
+      <TextField color="secondary" id="email" label="email" variant="outlined" required margin="normal" type="email" value={formValues.email} onChange={handleInputChange} disabled={isLoading} />
       <TextField color="secondary" id="password" label="password" variant="outlined" required type="password" margin="normal" value={formValues.password} onChange={handleInputChange} disabled={isLoading} />
       {/* confirm password */}
       <TextField color="secondary" id="confirmPassword" label="confirm password" variant="outlined" required type="password" margin="normal" value={formValues.confirmPassword} onChange={handleInputChange} disabled={isLoading} />
