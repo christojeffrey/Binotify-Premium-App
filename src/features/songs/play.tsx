@@ -3,7 +3,7 @@ import { Box, Card, CardContent, Typography} from "@mui/material";
 import ReactAudioPlayer from 'react-audio-player';
 import { config } from "@config";
 import { useSongStore, Song, useUserStore } from "@features/store";
-
+ import "./play.css"
 
 export const FeaturesSongsPlay = ({
 
@@ -39,11 +39,10 @@ export const FeaturesSongsPlay = ({
 
         return (
 
-            <Card sx={{ bottom: 0, position: 'fixed', width: '100%' }}>
-                <Box sx={{ display: 'flex', flexDirection: 'row' }}>
+            <Card className="player-card-container">
                     <CardContent>
                         <Box>
-                            <Typography component="div" variant="h5" clasName="text-lg">
+                            <Typography component="div"  clasName="text-lg">
                                 {playedSong.title}
                             </Typography>
                             <Typography variant="subtitle1" component="div" clasName="text-sm">
@@ -51,14 +50,13 @@ export const FeaturesSongsPlay = ({
                             </Typography>
                         </Box>
                     </CardContent>
-                    <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+                    <Box className="player-card-audio ">
                         <ReactAudioPlayer
                             src={`${config.REST_API_URL}/song/${playedSong.audio_path}`}
                             autoPlay
                             controls
                         />
                     </Box>
-                </Box>
                             
             </Card>
         )

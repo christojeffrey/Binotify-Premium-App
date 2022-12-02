@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
   type FeaturesSongsModalEditProps = {
-
+    fetchSongs: () => void;
   }
 
   const defaultValues = {
@@ -16,12 +16,10 @@ import { useNavigate } from "react-router-dom";
   };
 
 export const FeaturesSongsModalEdit = ({
-
+  fetchSongs
 }: FeaturesSongsModalEditProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-
-    let navigate = useNavigate();
 
     let setSelectedSong = useSongStore.getState().setSelectedSong;
     let setIsEditSongModalOpen = useSongStore.getState().setIsEditSongModalOpen;
@@ -75,7 +73,7 @@ export const FeaturesSongsModalEdit = ({
             if (res.status === 200) {
               res.json().then((data) => {
                 handleCloseEditSongModal();
-                navigate(0);
+                fetchSongs();
               });
             } else {
               setIsLoading(false);
@@ -97,7 +95,7 @@ export const FeaturesSongsModalEdit = ({
         <Modal open={isEditSongModalOpen}
         onClose={() =>setIsEditSongModalOpen(false)}
         className="flex items-center justify-center h-screen">
-             <Box component="form" autoComplete="off" className="flex flex-col p-5" onSubmit={handleSubmit}>
+             <Box component="form" autoComplete="off" className="flex flex-col p-5  bg-gray-500 bg-opacity-10" onSubmit={handleSubmit}>
                 <TextField  id="title"
                             label="Title"
                             variant="outlined"

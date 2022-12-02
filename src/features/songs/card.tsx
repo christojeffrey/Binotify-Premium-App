@@ -49,7 +49,7 @@ export const FeaturesSongsCard = ({
     }
 
     return (
-        <div className="flex justify-between bg-white h-20 bg-opacity-10">
+        <div className="flex justify-between bg-white h-20 bg-opacity-10 my-4 rounded-md">
             <div className="flex p-4">
                 <IconButton  aria-label="play/pause" onClick={playAudio}>
                     <PlayArrowIcon color="secondary" className="singer-card-button" />

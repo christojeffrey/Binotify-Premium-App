@@ -11,17 +11,17 @@ const defaultValues = {
   };
 
   type FeaturesSongsModalAddProps = {
-
+    fetchSongs: () => void;
   }
 
 export const FeaturesSongsModalAdd = ({
+  fetchSongs
 
 }: FeaturesSongsModalAddProps) => {
     const [formValues, setFormValues] = useState(defaultValues);
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
 
-    let navigate = useNavigate();
 
     let setSelectedSong = useSongStore.getState().setSelectedSong;
     let setIsAddSongModalOpen = useSongStore.getState().setIsAddSongModalOpen;
@@ -62,7 +62,7 @@ export const FeaturesSongsModalAdd = ({
             if (res.status === 200) {
               res.json().then((data) => {
                 handleCloseAddSongModal();
-                navigate(0);
+                fetchSongs();
               });
             } else {
               setIsLoading(false);
@@ -84,7 +84,7 @@ export const FeaturesSongsModalAdd = ({
         <Modal  open={isAddSongModalOpen}
                 onClose={() =>setIsAddSongModalOpen(false)}
                 className="flex items-center justify-center h-screen">
-             <Box component="form" autoComplete="off" className="flex flex-col p-5" onSubmit={handleSubmit}>
+             <Box component="form" autoComplete="off" className="flex flex-col p-5  bg-gray-500 bg-opacity-10" onSubmit={handleSubmit}>
                 <TextField  id="title"
                             label="Title"
                             variant="outlined"
@@ -100,6 +100,7 @@ export const FeaturesSongsModalAdd = ({
                             variant="outlined"
                             margin="normal"
                             focused
+                            required
                             color="secondary"
                             onChange={handleFileChange}
                             disabled={isLoading}

@@ -10,7 +10,7 @@ import { useSongStore, Song } from "@features/store";
 import { config } from "@config";
 import { useNavigate } from "react-router-dom";
 
-import { Box, IconButton } from "@mui/material";
+import { Box, IconButton, Typography } from "@mui/material";
 
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
@@ -45,6 +45,26 @@ export const FeaturesSongs = () => {
     // fetch song list
     useEffect(() => {
         // redirect to login screen if not logged in
+        fetchSongs();
+    }, [ ]);
+
+    useEffect(() => {
+        if ((isDeleteSongModalOpen ||  isEditSongModalOpen) && (selectedSong.song_id === playedSong.song_id)) {
+            console.log("sanma")
+            setIsOpenSongPlayCard(false)
+        }
+    }, [isDeleteSongModalOpen, isEditSongModalOpen, selectedSong, playedSong])
+
+
+    useEffect(() => {
+        setCanGoToPreviousPage(pagination.page > 1)
+    }, [pagination.page])
+
+    useEffect(() => {
+        setCanGoToNextPage(Math.ceil(songList.length / pagination.limit)  > pagination.page)
+    }, [songList, pagination.page, pagination.limit])
+
+    const fetchSongs = () => {
         const token = localStorage.getItem("token");
 
         if (!token) {
@@ -65,24 +85,7 @@ export const FeaturesSongs = () => {
                 console.log(err);
             });
         }
-    }, [ ]);
-
-    useEffect(() => {
-        if ((isDeleteSongModalOpen ||  isEditSongModalOpen) && (selectedSong.song_id === playedSong.song_id)) {
-            console.log("sanma")
-            setIsOpenSongPlayCard(false)
-        }
-    }, [isDeleteSongModalOpen, isEditSongModalOpen, selectedSong, playedSong])
-
-
-    useEffect(() => {
-        setCanGoToPreviousPage(pagination.page > 1)
-    }, [pagination.page])
-
-    useEffect(() => {
-        setCanGoToNextPage(Math.ceil(songList.length / pagination.limit)  > pagination.page)
-    }, [songList, pagination.page, pagination.limit])
-
+    };
     const renderSongCard = (song_id: number,
         title: string,
         audio_path: string) => {
@@ -122,8 +125,9 @@ export const FeaturesSongs = () => {
     return (
         // todo: pagination
         <>
-        <Box className="flex-col">
-            <Box className="flex-col w-9/12 justify-center">
+        <Box className="flex-col p-4">
+            <Typography variant="h5">Song List</Typography>
+            <Box className="flex-col justify-center mx-8">
                 <Box className="flex row justify-between" >
                     <IconButton aria-label="add" onClick={onClickAddSongButton}>
                         <AddCircleIcon sx={{ height: 38, width: 38, color: "white" }}  />
@@ -139,14 +143,14 @@ export const FeaturesSongs = () => {
                     
                 </Box>
                 {
-                    songList.length > 0 ? renderSongCards() : <p>No songs found</p>
+                    songList.length > 0 ? renderSongCards() : <p className="flex items-center justify-center h-96 text-gray-400">No songs found</p>
                 }
             </Box>
             
  
-            <FeaturesSongsModalAdd />         
-            <FeaturesSongsModalDelete />
-            <FeaturesSongsModalEdit />
+            <FeaturesSongsModalAdd fetchSongs={fetchSongs}/>         
+            <FeaturesSongsModalDelete fetchSongs={fetchSongs}/>
+            <FeaturesSongsModalEdit fetchSongs={fetchSongs}/>
 
             {isOpenSongPlayCard && <FeaturesSongsPlay />}
         </Box>

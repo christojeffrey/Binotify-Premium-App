@@ -13,6 +13,10 @@ export const FeaturesSubscribers = () => {
   let [canGoToNextPage, setCanGoToNextPage] = useState(true);
   let [canGoToPreviousPage, setCanGoToPreviousPage] = useState(false);
   useEffect(() => {
+    fetchSubscriberRequests()
+  }, [])
+  
+  const fetchSubscriberRequests = () => {
     const token = localStorage.getItem("token");
     
     // let navigate = useNavigate();
@@ -35,8 +39,7 @@ export const FeaturesSubscribers = () => {
         // console.log(err);
       });
     }
-  }, [])
-  
+  }
   const goToNextPage = () => {
       setPagination({...pagination, page: pagination.page + 1});
   }
@@ -63,6 +66,7 @@ export const FeaturesSubscribers = () => {
                 creator_id={creator_id}
                 subscriber_id={subscriber_id}
                 status={status}
+                fetchSubscriberRequests={fetchSubscriberRequests}
             />
         );
 }
@@ -82,7 +86,8 @@ const renderSubscriberCards = () => {
 
   return (
     <>
-      <Box className="flex-col">
+      <Box className="flex-col p-4">
+        <Typography variant="h5">Subscription requests</Typography>
         <Box className="flex row justify-end" > 
           <Box className="flex row">
               <IconButton disabled={!canGoToPreviousPage} aria-label="navigate-before" onClick={goToPreviousPage}>
@@ -92,11 +97,11 @@ const renderSubscriberCards = () => {
                   <NavigateNextIcon sx={{ height: 38, width: 38, color: "white" }} />
               </IconButton> 
           </Box>
-                
+             
         </Box> 
         {
           subscribers.length > 0 ? renderSubscriberCards()
-        : <Typography variant="h1">No subscription request</Typography>
+        : <p className="flex items-center justify-center h-96 text-gray-400">No subscription requests</p>
         }
       </Box>
     </>
