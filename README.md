@@ -20,6 +20,17 @@ remember that this is relatively experimental. So far even I am still not that c
 
 # work distribution
 
+| task                                                         | NIM      |
+| ------------------------------------------------------------ | -------- |
+| structuring based on figma                                   | 13520055 |
+| styling                                                      | 13520045 |
+| Page subscription request                                    | 13520156 |
+| handle case kalau habis update dan hapus song yg lagi diplay | 13520045 |
+| Headerbar                                                    | 13520055 |
+| Page song list + 3 modal                                     | 13520045 |
+| bugfix: fix docker hot reload                                | 13520055 |
+| Page login + register with token handling                    | 13520055 |
+
 # file folder structure and component naming reference
 
 [first](https://hackernoon.com/structuring-projects-and-naming-components-in-react-1261b6e18d76)
