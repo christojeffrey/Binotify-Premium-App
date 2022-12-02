@@ -18,6 +18,29 @@ remember that this is relatively experimental. So far even I am still not that c
 
 # screenshots
 
+![login](./public/login.png)
+![register](./public/register.png)
+
+<!-- songlist -->
+
+![songlist](./public/songlist.png)
+
+<!-- subscriptionreq -->
+
+![subscriptionreq](./public/subscriptionreq.png)
+
+<!-- addmodal -->
+
+![addmodal](./public/addmodal.png)
+
+<!-- deletemodal -->
+
+![deletemodal](./public/deletemodal.png)
+
+<!-- updatemodal -->
+
+![updatemodal](./public/updatemodal.png)
+
 # work distribution
 
 | task                                                         | NIM      |
