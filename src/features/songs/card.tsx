@@ -1,6 +1,6 @@
 import { useState} from "react";
 
-import { Box, Card, CardContent, Typography, IconButton } from "@mui/material";
+import { div, Typography, IconButton } from "@mui/material";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReactAudioPlayer from 'react-audio-player';
@@ -9,6 +9,7 @@ import { useSongStore, useUserStore } from "@features/store";
 import { Song } from "@features/store";
 import { Delete } from "@mui/icons-material";
 
+import './card.css';
 
 export const FeaturesSongsCard = ({
     song_id,
@@ -48,32 +49,29 @@ export const FeaturesSongsCard = ({
     }
 
     return (
-        <Card className="play-audio-card-container my-1">
-            <Box className="play-audio-card-content-container" sx={{ display: 'flex', flexDirection: 'row' }}>
-                <CardContent>
-                    <Box>
-                        <Typography component="div" variant="h5">
-                            {title}
-                        </Typography>
-                        <Typography variant="subtitle1" color="text.secondary" component="div">
-                            {singer}
-                        </Typography>
-                    </Box>
-                </CardContent>
-                <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-                   
-                    <IconButton aria-label="play/pause" onClick={() => playAudio()}>
-                        <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-                    </IconButton>
-                    <IconButton aria-label="delete" onClick={deleteSong}>
-                        <Delete sx={{ height: 38, width: 38 }} />
-                    </IconButton>
-                    <IconButton aria-label="edit" onClick={editSong}>
-                        <EditIcon sx={{ height: 38, width: 38 }} />
-                    </IconButton>
-                </Box>
-            </Box>
-                        
-        </Card>
+        <div className="flex justify-between bg-white h-20 bg-opacity-10">
+            <div className="flex p-4">
+                <IconButton  aria-label="play/pause" onClick={playAudio}>
+                    <PlayArrowIcon color="secondary" className="singer-card-button" />
+                </IconButton>
+                <div clasName="flex-col">
+                    <h2 className="text-lg">
+                        {title}
+                    </h2>
+                    <h3 className="text-sm">
+                        {singer}
+                    </h3>
+                </div>
+            </div>
+            <div className="flex-row justify-between items-center p-2">
+                <IconButton aria-label="edit" onClick={editSong}>
+                    <EditIcon className="singer-card-button"/>
+                </IconButton>
+                <IconButton aria-label="delete" onClick={deleteSong}>
+                    <Delete className="singer-card-button" sx={{ color: 'pink[500]' }} />
+                </IconButton>
+
+            </div>                        
+        </div>
     )
 };

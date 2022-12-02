@@ -97,12 +97,14 @@ export const FeaturesSongsModalEdit = ({
         <Modal open={isEditSongModalOpen}
         onClose={() =>setIsEditSongModalOpen(false)}
         className="flex items-center justify-center h-screen">
-             <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleSubmit}>
+             <Box component="form" autoComplete="off" className="flex flex-col p-5" onSubmit={handleSubmit}>
                 <TextField  id="title"
                             label="Title"
                             variant="outlined"
                             required
+                            focused
                             margin="normal"
+                            color="secondary"
                             value={formValues.title}
                             onChange={handleInputChange}
                             disabled={isLoading} />
@@ -110,15 +112,17 @@ export const FeaturesSongsModalEdit = ({
                             label="Audio File"
                             variant="outlined"
                             margin="normal"
+                            focused
+                            color="secondary"
                             onChange={handleFileChange}
                             disabled={isLoading}
                             type="file"
                             InputProps={{ inputProps: { accept: "audio/*" } }}
                             />
-                <Button variant="contained" type="submit" disabled={isLoading}>
+                <Button color="secondary" variant="contained" type="submit" disabled={isLoading}>
                     {isLoading ? "Loading" : "Edit Song"}
                 </Button>
-                <Button onClick ={handleCloseEditSongModal}>
+                <Button color="secondary" onClick ={handleCloseEditSongModal}>
                     Cancel
                 </Button>
             </Box>

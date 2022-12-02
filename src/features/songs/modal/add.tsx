@@ -84,26 +84,29 @@ export const FeaturesSongsModalAdd = ({
         <Modal  open={isAddSongModalOpen}
                 onClose={() =>setIsAddSongModalOpen(false)}
                 className="flex items-center justify-center h-screen">
-             <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleSubmit}>
+             <Box component="form" autoComplete="off" className="flex flex-col p-5" onSubmit={handleSubmit}>
                 <TextField  id="title"
                             label="Title"
                             variant="outlined"
                             required
+                            focused
                             margin="normal"
+                            color="secondary"
                             value={formValues.title}
                             onChange={handleInputChange}
                             disabled={isLoading} />
                 <TextField  id="file"
                             label="Audio File"
                             variant="outlined"
-                            required
                             margin="normal"
+                            focused
+                            color="secondary"
                             onChange={handleFileChange}
                             disabled={isLoading}
                             type="file"
                             InputProps={{ inputProps: { accept: "audio/*" } }}
                             />
-                <Button variant="contained" type="submit" disabled={isLoading}>
+                <Button variant="contained" color="secondary" type="submit" disabled={isLoading}>
                     {isLoading ? "Loading" : "Add Song"}
                 </Button>
             </Box>

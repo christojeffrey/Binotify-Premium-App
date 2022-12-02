@@ -123,27 +123,31 @@ export const FeaturesSongs = () => {
         // todo: pagination
         <>
         <Box className="flex-col">
-            <Box className="flex row justify-between" >
-                <IconButton aria-label="add" onClick={onClickAddSongButton}>
-                    <AddCircleIcon sx={{ height: 38, width: 38, color: "white" }}  />
-                </IconButton>  
-                <Box className="flex row">
-                    <IconButton disabled={!canGoToPreviousPage} aria-label="navigate-before" onClick={goToPreviousPage}>
-                        <NavigateBeforeIcon sx={{ height: 38, width: 38, color: "white" }} />
-                    </IconButton>
-                    <IconButton disabled={!canGoToNextPage} aria-label="navigate-next" onClick={goToNextPage}>
-                        <NavigateNextIcon sx={{ height: 38, width: 38, color: "white" }} />
-                    </IconButton> 
+            <Box className="flex-col w-9/12 justify-center">
+                <Box className="flex row justify-between" >
+                    <IconButton aria-label="add" onClick={onClickAddSongButton}>
+                        <AddCircleIcon sx={{ height: 38, width: 38, color: "white" }}  />
+                    </IconButton>  
+                    <Box className="flex row">
+                        <IconButton disabled={!canGoToPreviousPage} aria-label="navigate-before" onClick={goToPreviousPage}>
+                            <NavigateBeforeIcon sx={{ height: 38, width: 38, color: "white" }} />
+                        </IconButton>
+                        <IconButton disabled={!canGoToNextPage} aria-label="navigate-next" onClick={goToNextPage}>
+                            <NavigateNextIcon sx={{ height: 38, width: 38, color: "white" }} />
+                        </IconButton> 
+                    </Box>
+                    
                 </Box>
-                
-            </Box> 
+                {
+                    songList.length > 0 ? renderSongCards() : <p>No songs found</p>
+                }
+            </Box>
+            
  
             <FeaturesSongsModalAdd />         
             <FeaturesSongsModalDelete />
             <FeaturesSongsModalEdit />
-            {
-                songList.length > 0 ? renderSongCards() : <p>No songs found</p>
-            }
+
             {isOpenSongPlayCard && <FeaturesSongsPlay />}
         </Box>
         </>

@@ -62,15 +62,15 @@ export const FeaturesUsersRegisterForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   return (
     <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleSubmit}>
-      <TextField id="name" label="name" variant="outlined" required margin="normal" value={formValues.name} onChange={handleInputChange} disabled={isLoading} />
-      <TextField id="username" label="username" variant="outlined" required margin="normal" value={formValues.username} onChange={handleInputChange} disabled={isLoading} />
-      <TextField id="email" label="email" variant="outlined" required margin="normal" value={formValues.email} onChange={handleInputChange} disabled={isLoading} />
-      <TextField id="password" label="password" variant="outlined" required type="password" margin="normal" value={formValues.password} onChange={handleInputChange} disabled={isLoading} />
+      <TextField color="secondary" id="name" label="name" variant="outlined" required margin="normal" value={formValues.name} onChange={handleInputChange} disabled={isLoading} />
+      <TextField color="secondary" id="username" label="username" variant="outlined" required margin="normal" value={formValues.username} onChange={handleInputChange} disabled={isLoading} />
+      <TextField color="secondary" id="email" label="email" variant="outlined" required margin="normal" value={formValues.email} onChange={handleInputChange} disabled={isLoading} />
+      <TextField color="secondary" id="password" label="password" variant="outlined" required type="password" margin="normal" value={formValues.password} onChange={handleInputChange} disabled={isLoading} />
       {/* confirm password */}
-      <TextField id="confirmPassword" label="confirm password" variant="outlined" required type="password" margin="normal" value={formValues.confirmPassword} onChange={handleInputChange} disabled={isLoading} />
+      <TextField color="secondary" id="confirmPassword" label="confirm password" variant="outlined" required type="password" margin="normal" value={formValues.confirmPassword} onChange={handleInputChange} disabled={isLoading} />
 
-      <div className="h-6 text-red-500">{error}</div>
-      <Button variant="contained" type="submit" disabled={isLoading}>
+      <div color="error" className="h-6 text-red-500">{error}</div>
+      <Button color="secondary" variant="contained" type="submit" disabled={isLoading}>
         {isLoading ? "Loading" : "Register"}
       </Button>
     </Box>

@@ -43,10 +43,10 @@ export const FeaturesSongsPlay = ({
                 <Box sx={{ display: 'flex', flexDirection: 'row' }}>
                     <CardContent>
                         <Box>
-                            <Typography component="div" variant="h5">
+                            <Typography component="div" variant="h5" clasName="text-lg">
                                 {playedSong.title}
                             </Typography>
-                            <Typography variant="subtitle1" color="text.secondary" component="div">
+                            <Typography variant="subtitle1" component="div" clasName="text-sm">
                                 {singer}
                             </Typography>
                         </Box>
