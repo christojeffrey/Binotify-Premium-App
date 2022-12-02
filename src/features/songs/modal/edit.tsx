@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 
   type FeaturesSongsModalEditProps = {
-
+    fetchSongs: () => void;
   }
 
   const defaultValues = {
@@ -16,12 +16,10 @@ import { useNavigate } from "react-router-dom";
   };
 
 export const FeaturesSongsModalEdit = ({
-
+  fetchSongs
 }: FeaturesSongsModalEditProps) => {
     const [isLoading, setIsLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
-
-    let navigate = useNavigate();
 
     let setSelectedSong = useSongStore.getState().setSelectedSong;
     let setIsEditSongModalOpen = useSongStore.getState().setIsEditSongModalOpen;
@@ -75,7 +73,7 @@ export const FeaturesSongsModalEdit = ({
             if (res.status === 200) {
               res.json().then((data) => {
                 handleCloseEditSongModal();
-                navigate(0);
+                fetchSongs();
               });
             } else {
               setIsLoading(false);
@@ -97,12 +95,14 @@ export const FeaturesSongsModalEdit = ({
         <Modal open={isEditSongModalOpen}
         onClose={() =>setIsEditSongModalOpen(false)}
         className="flex items-center justify-center h-screen">
-             <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleSubmit}>
+             <Box component="form" autoComplete="off" className="flex flex-col p-5  bg-gray-500 bg-opacity-10" onSubmit={handleSubmit}>
                 <TextField  id="title"
                             label="Title"
                             variant="outlined"
                             required
+                            focused
                             margin="normal"
+                            color="secondary"
                             value={formValues.title}
                             onChange={handleInputChange}
                             disabled={isLoading} />
@@ -110,15 +110,17 @@ export const FeaturesSongsModalEdit = ({
                             label="Audio File"
                             variant="outlined"
                             margin="normal"
+                            focused
+                            color="secondary"
                             onChange={handleFileChange}
                             disabled={isLoading}
                             type="file"
                             InputProps={{ inputProps: { accept: "audio/*" } }}
                             />
-                <Button variant="contained" type="submit" disabled={isLoading}>
+                <Button color="secondary" variant="contained" type="submit" disabled={isLoading}>
                     {isLoading ? "Loading" : "Edit Song"}
                 </Button>
-                <Button onClick ={handleCloseEditSongModal}>
+                <Button color="secondary" onClick ={handleCloseEditSongModal}>
                     Cancel
                 </Button>
             </Box>

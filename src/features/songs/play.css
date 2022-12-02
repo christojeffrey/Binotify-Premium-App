@@ -1,0 +1,24 @@
+.player-card-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+}
+
+.player-card-container::after {
+    flex: 1;
+    content: '';
+}
+
+.player-card-song-information-container {
+    display: flex;
+    flex: 1;
+}
+
+.player-card-audio {
+    display: flex;
+    align-items: center;
+}

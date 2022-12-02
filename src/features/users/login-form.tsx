@@ -1,4 +1,4 @@
-import { Box, Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import TextField from "@mui/material/TextField";
 import { useState } from "react";
 import { config } from "@config";
@@ -23,7 +23,6 @@ export const FeaturesUsersLoginForm = () => {
   const handleSubmit = (event: any) => {
     event.preventDefault();
     setIsLoading(true);
-    console.log(formValues);
     fetch(`${config.REST_API_URL}/login`, {
       method: "POST",
       headers: {
@@ -50,24 +49,27 @@ export const FeaturesUsersLoginForm = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   return (
-    <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleSubmit}>
-      <TextField id="username" label="username" variant="outlined" required margin="normal" value={formValues.username} onChange={handleInputChange} disabled={isLoading} sx={{ input: { color: "red" } }} />
-      <TextField id="password" label="password" variant="outlined" required type="password" margin="normal" value={formValues.password} onChange={handleInputChange} disabled={isLoading} />
+    <Box component="form" autoComplete="off" className="flex flex-col p-5 bg-gray-500 bg-opacity-10" onSubmit={handleSubmit}>
+      <Typography variant="h5" sx={{textAlign: "center", padding:"0.5rem"}}>
+          Hello again!
+      </Typography>      
+      <TextField color="secondary"id="username" label="username" variant="outlined" required margin="normal" value={formValues.username} onChange={handleInputChange} disabled={isLoading} />
+      <TextField color="secondary" id="password" label="password" variant="outlined" required type="password" margin="normal" value={formValues.password} onChange={handleInputChange} disabled={isLoading} />
       <div className="h-6 text-red-500">{error}</div>
-      <Button variant="contained" type="submit" disabled={isLoading}>
+      <Button color="secondary" variant="contained" type="submit" disabled={isLoading}>
         {isLoading ? "Loading" : "Login"}
       </Button>
-      <div className="text-black">
-        not yet registered? go to{" "}
-        <span
+      <Typography>
+        not yet registered? {" "}
+        <span 
           onClick={() => {
             navigate("/register");
           }}
-          className="hover:cursor-pointer"
+          className="text-green-500 hover:cursor-pointer"
         >
           register
         </span>
-      </div>
+      </Typography>
     </Box>
   );
 };

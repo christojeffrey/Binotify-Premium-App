@@ -4,10 +4,20 @@ import { config } from "@config";
 import { Box, Card, CardContent, Typography, IconButton } from "@mui/material";
 import ThumbUpIcon from "@mui/icons-material/ThumbUp";
 import ThumbDownIcon from "@mui/icons-material/ThumbDown";
-import { useNavigate } from "react-router-dom";
 
-export const FeaturesSubscribersCard = ({ creator_id, subscriber_id, status }: Subscription) => {
-  let navigate = useNavigate();
+
+type FeaturesSubscribersCardProps = {
+  creator_id: number,
+  subscriber_id: number,
+  status: string,
+  fetchSubscriberRequests: () => void
+}
+export const FeaturesSubscribersCard = ({
+  creator_id,
+  subscriber_id,
+  status,
+  fetchSubscriberRequests
+}: FeaturesSubscribersCardProps) => {
 
   const handleAccept = () => {
     const body = {
@@ -22,7 +32,7 @@ export const FeaturesSubscribersCard = ({ creator_id, subscriber_id, status }: S
       body: JSON.stringify(body),
     })
       .then((res) => {
-        navigate(0);
+        fetchSubscriberRequests();
       })
       .catch((err) => {
         alert("Something went wrong");
@@ -42,48 +52,44 @@ export const FeaturesSubscribersCard = ({ creator_id, subscriber_id, status }: S
       body: JSON.stringify(body),
     })
       .then((res) => {
-        navigate(0);
+        fetchSubscriberRequests();
       })
       .catch((err) => {
         alert("Something went wrong");
       });
   };
   return (
-    <Card className="play-audio-card-container my-1">
-      <Box className="play-audio-card-content-container" sx={{ display: "flex", flexDirection: "row" }}>
-        <CardContent>
-          <Box>
+    <div className="flex justify-between bg-white h-20 bg-opacity-10 my-4 rounded-md">
+        <div className="flex-col justify-center p-4">
             <Typography component="div">User's ID: {subscriber_id}</Typography>
             <Typography component="div">Singer's ID: {creator_id}</Typography>
-          </Box>
-        </CardContent>
-        <Box sx={{ display: "flex", alignItems: "center", pl: 1, pb: 1 }}>
+        </div>
+        <div className="flex-row justify-center items-center p-2">
           <IconButton
-            aria-label="Reject"
-            onClick={handleReject}
-            sx={{
-              "&:hover": {
-                color: "red",
-                cursor: "pointer",
-              },
-            }}
-          >
-            <ThumbDownIcon sx={{ height: 38, width: 38 }} />
+              aria-label="Reject"
+              onClick={handleReject}
+              sx={{
+                "&:hover": {
+                  color: "red",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              <ThumbDownIcon sx={{ height: 25, width: 25 }} />
           </IconButton>
           <IconButton
-            aria-label="Accept"
-            onClick={handleAccept}
-            sx={{
-              "&:hover": {
-                color: "green",
-                cursor: "pointer",
-              },
-            }}
-          >
-            <ThumbUpIcon sx={{ height: 38, width: 38 }} />
+              aria-label="Accept"
+              onClick={handleAccept}
+              sx={{
+                "&:hover": {
+                  color: "green",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              <ThumbUpIcon sx={{ height: 25, width: 25 }} />
           </IconButton>
-        </Box>
-      </Box>
-    </Card>
+        </div>
+    </div>
   );
 };

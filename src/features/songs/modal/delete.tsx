@@ -11,11 +11,11 @@ const defaultValues = {
   };
 
   type FeaturesSongsModalDeleteProps = {
-
+    fetchSongs: ()  => void;
   }
 
 export const FeaturesSongsModalDelete = ({
-
+    fetchSongs
     }: FeaturesSongsModalDeleteProps) => {
 // : FC<FeaturesSongsModalAddProps> = ({
 //     isAddSongModalOpen
@@ -29,7 +29,6 @@ export const FeaturesSongsModalDelete = ({
 
     let setSelectedSong = useSongStore.getState().setSelectedSong;
     let selectedSong = useSongStore(state => state.selectedSong);
-    let navigate = useNavigate();
 
     const handleDelete = (event: any) => {
         event.preventDefault();
@@ -44,7 +43,7 @@ export const FeaturesSongsModalDelete = ({
             if (res.status === 200) {
               res.json().then((data) => {
                 handleCloseDeleteSongModal();
-                navigate(0);
+                fetchSongs();
               });
             } else {
             setIsLoading(false);
@@ -66,10 +65,10 @@ export const FeaturesSongsModalDelete = ({
         <Modal
             open={isDeleteSongModalOpen}
             onClose={handleCloseDeleteSongModal}
-            className="flex items-center justify-center h-screen">
-             <Box component="form" autoComplete="off" className="flex flex-col bg-gray-300 p-5" onSubmit={handleDelete}>
+            className="flex items-center justify-center h-screen bg-gray-500 bg-opacity-10">
+             <Box component="form" autoComplete="off" className="flex flex-col  p-5  bg-gray-500 bg-opacity-10" onSubmit={handleDelete}>
                 <Typography>Are you sure want to delete {selectedSong.title}?</Typography>
-                <Button variant="contained" type="submit" disabled={isLoading} onClick={handleDelete}>
+                <Button variant="contained" color="secondary" type="submit" disabled={isLoading} onClick={handleDelete}>
                     {isLoading ? "Loading" : "Yes"}
                 </Button>
             </Box>
