@@ -52,7 +52,7 @@ export const FeaturesSubscribersCard = ({
       body: JSON.stringify(body),
     })
       .then((res) => {
-        navigate(0);
+        fetchSubscriberRequests();
       })
       .catch((err) => {
         alert("Something went wrong");
